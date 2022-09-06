@@ -1,5 +1,6 @@
 package com.xkcoding.cache.redis;
 
+import cn.hutool.json.JSONUtil;
 import com.xkcoding.cache.redis.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -48,5 +49,11 @@ public class RedisTest extends SpringBootDemoCacheRedisApplicationTests {
         // 对应 String（字符串）
         User user = (User) redisCacheTemplate.opsForValue().get(key);
         log.debug("【user】= {}", user);
+
+        // 上面方式存储对象，会在序列化生成的json字符串中额外存储（"@class": "com.xkcoding.cache.redis.entity.User"）
+        // 手动序列化反序列化对象，就可以直接用String存储对象
+        User user2 = new User(2L, "user2");
+        String jsonUser2 = JSONUtil.toJsonStr(user2);
+        stringRedisTemplate.opsForValue().set("xkcoding:user:2", jsonUser2);
     }
 }

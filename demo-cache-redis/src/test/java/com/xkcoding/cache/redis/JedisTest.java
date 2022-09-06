@@ -33,9 +33,9 @@ public class JedisTest {
 
     @Test
     public void testHash(){
-        jedis.hset("jedis:user:1", "name", "jedis");
+        jedis.hset("jedis:user:1", "name", "lijialing");
         jedis.hset("jedis:user:1", "age", "18");
-        jedis.hset("jedis:user:1", "sex", "man");
+        jedis.hset("jedis:user:1", "sex", "woman");
     }
 
     @AfterEach
